@@ -23,10 +23,25 @@ $sobrenome = $_POST['sobrenome'];
 $sql = "INSERT INTO usuario (nomeLogin, senha, nome, sobrenome) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssss", $nomeLogin, $senha, $nome, $sobrenome);
+?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Usuário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        
+<?php
 if ($stmt->execute()) {
-    echo "Cadastro realizado com sucesso!<br>";
-    echo "<a href=index.php><button class=button>Login</button></a>";
+    echo "<h1>Parabéns $nome!</h1> 
+    <h3>seu login foi cadastrado com sucesso!</h3><br>;
+     <a href=index.php><button class=button>Login</button></a>";
 } else {
     echo "Erro: " . $stmt->error;
 }
@@ -35,3 +50,6 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 ?>
+    </div>
+</body>
+</html>

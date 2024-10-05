@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <div class="container">
         <h2>Bem-vindo, <?php echo $_SESSION['nomeLogin']; ?>!</h2>
         <p>Esta é a área restrita do usuário.</p>
-        <a href="logout.php"><button div="button">Sair</button></a>
+        <a href="logout.php"><button class="button">Sair</button></a>
     </div>
 </body>
 </html>
