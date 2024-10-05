@@ -6,7 +6,6 @@
     <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
     <div class="container">
@@ -26,15 +25,15 @@
         <input type="text" class="inf" id="sobrenome" name="sobrenome" required><br><br>
 
         <input type="submit" class="button" value="Cadastrar">
-        </div>
     </form>
+    </div>
     <script>
         $(document).ready(function() {
             $('#nomeLogin').on('blur', function() {
                 var nomeLogin = $(this).val();
 
                 $.ajax({
-                    url: 'verifica_login.php',
+                    url: 'verifica_cadastro.php',
                     method: 'POST',
                     data: {nomeLogin: nomeLogin},
                     success: function(response) {

@@ -18,8 +18,10 @@ $nomeLogin = $_POST['nomeLogin'];
 $senha_digitada = $_POST['senha'];
 
 // Verificar se o nome de login existe
-$sql = "SELECT * FROM usuario WHERE nomeLogin = '$nomeLogin'";
-$resultado = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM usuario WHERE nomeLogin = ?");
+$stmt->bind_param("s", $nomeLogin);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
 if ($resultado->num_rows > 0) {
     // Se o usuário existe, pegar os dados
@@ -31,21 +33,19 @@ if ($resultado->num_rows > 0) {
         session_start();
         $_SESSION['usuario_id'] = $usuario['idUsuario'];
         $_SESSION['nomeLogin'] = $usuario['nomeLogin'];
-        $conn->close(); // Fecha a conexão antes do redirecionamento
-        header("Location: home.php"); // Redireciona para a página inicial
+        $conn->close();
+        header("Location: home.php");
         exit();
     } else {
         // Senha incorreta
-        $conn->close(); // Fecha a conexão antes do redirecionamento
-        header("Location: login.php?error=senha"); // Redireciona para login com erro
+        $conn->close();
+        header("Location: index.php?error=senha"); // Redireciona para login com erro
         exit();
     }
 } else {
     // Nome de login não encontrado
-    $conn->close(); // Fecha a conexão antes do redirecionamento
-    header("Location: login.php?error=login"); // Redireciona para login com erro
+    $conn->close();
+    header("Location: index.php?error=login"); // Redireciona para login com erro
     exit();
 }
-
-// Fechar conexão - Não é necessário aqui, pois já foi fechado acima
 ?>

@@ -13,21 +13,23 @@ if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-// Receber nome de login via AJAX
+// Receber o nome de login enviado via AJAX
 $nomeLogin = $_POST['nomeLogin'];
 
-// Verificar se o nome de login já existe no banco de dados
-$sql = "SELECT * FROM usuario WHERE nomeLogin = '$nomeLogin'";
-$resultado = $conn->query($sql);
+// Verificar se o nome de login já está em uso
+$sql = "SELECT * FROM usuario WHERE nomeLogin = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $nomeLogin);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
 if ($resultado->num_rows > 0) {
-    // Nome de login já existe
-    echo 'emuso';
+    echo "indisponivel"; // Nome de login já em uso
 } else {
-    // Nome de login está disponível
-    echo 'disponivel';
+    echo "disponivel"; // Nome de login disponível
 }
 
 // Fechar conexão
+$stmt->close();
 $conn->close();
 ?>

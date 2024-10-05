@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
-
     <div class="container">
         <h2>Login</h2>
-
         <?php
-        // Verifica se existe uma mensagem de erro na URL
         if (isset($_GET['error'])) {
             if ($_GET['error'] == 'senha') {
-                echo "<p style='color: red;'>Senha incorreta. Tente novamente.</p>";
+                echo "<p style='color: red;'>Senha incorreta!</p>";
             } elseif ($_GET['error'] == 'login') {
-                echo "<p style='color: red;'>Nome de login não encontrado. Tente novamente.</p>";
+                echo "<p style='color: red;'>Nome de login não encontrado!</p>";
             }
         }
         ?>
         <form action="verifica_login.php" method="post">
-
             <label for="nomeLogin">Nome de Login:</label><br>
             <input type="text" class="inf" id="nomeLogin" name="nomeLogin" required><br><br>
 
@@ -39,5 +32,4 @@
         </form>
     </div>
 </body>
-
 </html>
